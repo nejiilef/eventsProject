@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup, NgForm } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
@@ -11,6 +11,9 @@ import listPlugin from '@fullcalendar/list';
 import { category, calendarEvents, createEventId } from './data';
 
 import Swal from 'sweetalert2';
+import { IreservationSalle } from 'src/app/reservation-salle/model/ireservation-salle';
+import { ReservationSalleServiceService } from 'src/app/reservation-salle/service/reservation-salle-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-calendar',
@@ -88,6 +91,7 @@ export class CalendarComponent implements OnInit {
    * Event click modal show
    */
   handleEventClick(clickInfo: EventClickArg) {
+    console.log(clickInfo);
     this.editEvent = clickInfo.event;
     var category = clickInfo.event.classNames;
     this.formEditData = this.formBuilder.group({
@@ -108,7 +112,8 @@ export class CalendarComponent implements OnInit {
 
   constructor(
     private modalService: BsModalService,
-    private formBuilder: UntypedFormBuilder
+    private formBuilder: UntypedFormBuilder,
+    private service:ReservationSalleServiceService,private router:Router
   ) {}
 
   get form() {
@@ -149,6 +154,7 @@ export class CalendarComponent implements OnInit {
    * Event add modal
    */
   openModal(event?: any) {
+    console.log(event.date)
     this.newEventDate = event;
     this.modalRef = this.modalService.show(this.modalShow);
   }
@@ -225,6 +231,98 @@ export class CalendarComponent implements OnInit {
     }
     this.submitted = true;
   }
+  time1: string | undefined;
+  time2: string | undefined;
+
+  validateTimes(f:NgForm) {
+    this.time1 =f.value.heureDebut;
+    this.time2=f.value.heureFin;
+      console.log('Time 1:', this.time1);
+      console.log('Time 2:', this.time2);
+      
+    
+    if (this.time1 && this.time2 && this.time1 > this.time2) {
+      // Reset the value of time2 if it's less than or equal to time1
+      this.time2 = undefined
+      alert('in Appropriate time');
+    }
+    else{
+      console.log("submit")
+      this.onSubmit(f);
+    }
+  }
+  
+
+
+  updateTime2(event: any) {
+    
+    this.time2 = event.target.value;
+  }
+
+  updateTime1(event: any) {
+    this.time1 = event.target.value;
+  }
+
+
+   subbmited=false;
+  onSubmit(f:NgForm){
+    this.subbmited=true;
+      if(f.invalid){
+        return
+      }
+      else{
+  this.addRessS(f)
+  }
+  }
+
+  salle= [{
+    id: 1,
+    libelle: 'Salle 1',
+    reserve: false,
+    department: "electrique"
+  },
+  {
+    id: 2,
+    libelle: 'Salle 2',
+    reserve: false,
+    department: "informatique"
+  }
+  ,
+  {
+    id: 3,
+    libelle: 'Salle 3',
+    reserve: false,
+    department: "informatique"
+  },
+  {
+    id: 4,
+    libelle: 'Salle 4',
+    reserve: false,
+    department: "Gestion"
+  }
+]
+
+selectedSalle : any;
+
+
+addRessS=(f:NgForm)=>{
+   const newArr={id : f.value.id , heureDebut:f.value.heureDebut,heureFin: f.value.heureFin , jour:this.newEventDate.date}
+   this.service.addRessS(newArr as IreservationSalle , this.selectedSalle.id).subscribe(
+    response => {
+      this.modalService.hide();
+      console.log('reservation added successfully:', response);
+      this.router.navigate(["/dash"]);
+    },
+    error => {
+     alert("Salle deja reserve pendant cette periode !");
+      console.error('Error adding reservation:', error);
+    }
+   );
+   this.router.navigate(["/dash"]);
+  }
+
+  
+
 
   /**
    * Fetches the data

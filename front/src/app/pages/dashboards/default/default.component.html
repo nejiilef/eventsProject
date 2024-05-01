@@ -49,16 +49,7 @@
                         <div class="col-sm-8">
                             <div class="pt-4">
 
-                                <div class="row">
-                                    <div class="col-6">
-                                        <h5 class="font-size-15">125</h5>
-                                        <p class="text-muted mb-0">Projects</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <h5 class="font-size-15">$1245</h5>
-                                        <p class="text-muted mb-0">Revenue</p>
-                                    </div>
-                                </div>
+                                
                                 <div class="mt-4">
                                     <a href="" class="btn btn-primary btn-sm">View Profile <i class="mdi mdi-arrow-right ms-1"></i></a>
                                 </div>
@@ -69,11 +60,11 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">Monthly Earning</h4>
+                    <h4 class="card-title mb-4">Inscriptions</h4>
                     <div class="row">
                         <div class="col-sm-6">
-                            <p class="text-muted">This month</p>
-                            <h3>$34,252</h3>
+                            <p class="text-muted">This year</p>
+                            <h3>21</h3>
                             <p class="text-muted"><span class="text-success me-2"> 12% <i class="mdi mdi-arrow-up"></i>
                                 </span> From
                                 previous period</p>
@@ -94,16 +85,19 @@
         </div>
         <div class="col-xl-8">
             <div class="row">
-                <div *ngFor="let stat of statData" class="col-md-4">
+                <div *ngFor="let stat of statData" class="col-md-6">
                     <app-stat [title]="stat.title" [value]="stat.value" [icon]="stat.icon"></app-stat>
-                </div>
+                       </div>
             </div>
             <!-- end row -->
 
             <div class="card">
                 <div class="card-body">
                     <div class="d-sm-flex flex-wrap">
-                        <h4 class="card-title mb-4">Email Sent</h4>
+                        <div>
+                        <h4 class="card-title mb-4">Events</h4>
+                        </div>
+                        
                         <div class="ms-auto">
                             <ul class="nav nav-pills">
                                 <li class="nav-item">
@@ -127,215 +121,80 @@
     <!-- end row -->
 
     <div class="row">
-        <div class="col-xl-4">
+        <h4 class="card-title mb-4">List Events</h4>
+        <div class=" text-md-right mb-4">
+            <button type="button" class="btn btn-secondary btn-rounded" (click)="content.show()">add</button>
+        </div>                   
+        <div class="col-xl-4" *ngFor="let e of events">
             <div class="card">
+                
                 <div class="card-body">
-                    <h4 class="card-title mb-4">Social Source</h4>
-                    <div class="text-center">
+                    <button type="button" class="btn btn-danger btn-rounded mdi mdi mdi-square-edit-outline" (click)="content2.show()" (click)="OnSubmitUpdate(e.id)"></button>
+     
+                    <button type="button" class="btn btn-primary btn-rounded mdi mdi-delete-empty" (click)="deleteEvent(e.id)"></button>
+     
+                    <div class="text-center" >
+                        
                         <div class="avatar-sm mx-auto mb-4">
                             <span class="avatar-title rounded-circle bg-primary-subtle font-size-24">
-                                <i class="mdi mdi-facebook text-primary"></i>
+                                <i class="mdi mdi-calendar-multiple"></i>
                             </span>
                         </div>
                         <p class="font-16 text-muted mb-2"></p>
-                        <h5><a href="javascript: void(0);" class="text-dark">Facebook - <span class="text-muted font-16">125
-                                    sales</span> </a></h5>
-                        <p class="text-muted">Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero
-                            venenatis
-                            faucibus tincidunt.</p>
-                        <a href="javascript: void(0);" class="text-primary font-16">Learn more <i class="mdi mdi-chevron-right"></i></a>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-4">
-                            <div class="social-source text-center mt-3">
-                                <div class="avatar-xs mx-auto mb-3">
-                                    <span class="avatar-title rounded-circle bg-primary font-size-16">
-                                        <i class="mdi mdi-facebook text-white"></i>
-                                    </span>
-                                </div>
-                                <h5 class="font-size-15">Facebook</h5>
-                                <p class="text-muted mb-0">125 sales</p>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="social-source text-center mt-3">
-                                <div class="avatar-xs mx-auto mb-3">
-                                    <span class="avatar-title rounded-circle bg-info font-size-16">
-                                        <i class="mdi mdi-twitter text-white"></i>
-                                    </span>
-                                </div>
-                                <h5 class="font-size-15">Twitter</h5>
-                                <p class="text-muted mb-0">112 sales</p>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="social-source text-center mt-3">
-                                <div class="avatar-xs mx-auto mb-3">
-                                    <span class="avatar-title rounded-circle bg-pink font-size-16">
-                                        <i class="mdi mdi-instagram text-white"></i>
-                                    </span>
-                                </div>
-                                <h5 class="font-size-15">Instagram</h5>
-                                <p class="text-muted mb-0">104 sales</p>
-                            </div>
-                        </div>
-                    </div>
+                        <h5><a href="javascript: void(0);" class="text-dark">  {{e.libelle}}<span class="text-muted font-16">
+                                     </span> </a></h5>
+                        <p class="text-muted">{{e.description}}</p>
+                          </div>
+                    
 
                 </div>
             </div>
-        </div>
-        <div class="col-xl-4">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title mb-5">Activity</h4>
-                    <ul class="verti-timeline list-unstyled">
-                        <li class="event-list">
-                            <div class="event-timeline-dot">
-                                <i class="bx bx-right-arrow-circle font-size-18"></i>
-                            </div>
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                    <h5 class="font-size-14">22 Nov <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i>
-                                    </h5>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div>
-                                        Responded to need “Volunteer Activities
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="event-list">
-                            <div class="event-timeline-dot">
-                                <i class="bx bx-right-arrow-circle font-size-18"></i>
-                            </div>
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                    <h5 class="font-size-14">17 Nov <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i>
-                                    </h5>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div>
-                                        Everyone realizes why a new common language would be desirable... <a href="javascript: void(0);">Read more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="event-list active">
-                            <div class="event-timeline-dot">
-                                <i class="bx bxs-right-arrow-circle font-size-18 bx-fade-right"></i>
-                            </div>
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                    <h5 class="font-size-14">15 Nov <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i>
-                                    </h5>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div>
-                                        Joined the group “Boardsmanship Forum”
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="event-list">
-                            <div class="event-timeline-dot">
-                                <i class="bx bx-right-arrow-circle font-size-18"></i>
-                            </div>
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                    <h5 class="font-size-14">12 Nov <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i>
-                                    </h5>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div>
-                                        Responded to need “In-Kind Opportunity”
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="text-center mt-4"><a href="javascript: void(0);" class="btn btn-primary btn-sm">View
-                            More <i class="mdi mdi-arrow-right ms-1"></i></a></div>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-xl-4">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">Top Cities Selling Product</h4>
 
-                    <div class="text-center">
-                        <div class="mb-4">
-                            <i class="bx bx-map-pin text-primary display-4"></i>
-                        </div>
-                        <h3>1,456</h3>
-                        <p>San Francisco</p>
+            <div bsModal #content="bs-modal" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title mt-0">Add Event</h5>
+                      <button type="button" class="btn-close" aria-hidden="true" (click)="content.hide()"></button>
                     </div>
-
-                    <div class="table-responsive mt-4">
-                        <table class="table table-centered align-middle table-nowrap">
-                            <tbody>
-                                <tr>
-                                    <td style="width: 30%">
-                                        <p class="mb-0">San Francisco</p>
-                                    </td>
-                                    <td style="width: 25%">
-                                        <h5 class="mb-0">1,456</h5>
-                                    </td>
-                                    <td>
-                                        <div class="progress bg-transparent progress-sm">
-                                            <div class="progress-bar bg-primary rounded" role="progressbar" style="width: 94%" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-lg-13">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form #f="ngForm" (submit)="onSubmit(f)">
+                                        <div class="mb-3">
+                                            <label for="formrow-firstname-input">Libelle</label>
+                                            <input id="lib" class="form-control" type="text" placeholder="Libelle : " required name="Libelle" ngModel>
+                                          </div>
+                
+                                          <div class="mb-3">
+                                            <label for="formrow-firstname-input">description</label>
+                                            <input id="desc" class="form-control" type="text" placeholder="description : " required name="description" ngModel>
+                                       </div>
+                                        <div>
+                                            <button type="submit" class="btn btn-primary w-md" >Add</button>
                                         </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p class="mb-0">Los Angeles</p>
-                                    </td>
-                                    <td>
-                                        <h5 class="mb-0">1,123</h5>
-                                    </td>
-                                    <td>
-                                        <div class="progress bg-transparent progress-sm">
-                                            <div class="progress-bar bg-success rounded" role="progressbar" style="width: 82%" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p class="mb-0">San Diego</p>
-                                    </td>
-                                    <td>
-                                        <h5 class="mb-0">1,026</h5>
-                                    </td>
-                                    <td>
-                                        <div class="progress bg-transparent progress-sm">
-                                            <div class="progress-bar bg-warning rounded" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
                 </div>
-            </div>
-        </div>
-    </div>
+              </div>
 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">Latest Transaction</h4>
-                    <app-transaction [transactions]="transactions"></app-transaction>
-                    <!-- end table -->
-                </div>
             </div>
+        
         </div>
-    </div>
-</div> <!-- container-fluid -->
+       
+        </div>
+</div>
+</div>
 
+
+    <!-- container-fluid -->
+<!--
 <div bsModal #center="bs-modal" class="modal fade" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -368,5 +227,55 @@
                 </div>
             </div>
         </div>
+    </div>
+</div> -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                
+                <h4 class="card-title mb-4">List des reservations des salles</h4>
+   
+                <app-transaction ></app-transaction>
+                <!-- end table -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div >
+    <div bsModal #content2="bs-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title mt-0">Edit Event</h5>
+              <button type="button" class="btn-close" aria-hidden="true" (click)="content2.hide()"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-lg-13">
+                    <div class="card">
+                        <div class="card-body">
+                            <form #f="ngForm" [formGroup]="updateEventForm">
+                                <div class="mb-3">
+                                    <label for="formrow-firstname-input">Libelle</label>
+                                    <input id="lib" class="form-control" type="text" placeholder="Libelle : " required name="Libelle" formControlName="libelle">
+                                  </div>
+        
+                                  <div class="mb-3">
+                                    <label for="formrow-firstname-input">description</label>
+                                    <input id="desc" class="form-control" type="text" placeholder="description : " required name="description" formControlName="description">
+                               </div>
+                                <div>
+                                    <button type="submit" class="btn btn-primary w-md" (click)="updateEvent()" (click)="content2.hide()">Edit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 </div>

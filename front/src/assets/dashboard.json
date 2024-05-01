@@ -56,17 +56,13 @@
   ],
 
   "statData": [{
-    "icon": "bx bx-copy-alt",
-    "title": "Orders",
-    "value": "1,235"
+    "icon": "mdi mdi-wallet-membership",
+    "title": "Members",
+    "value": "90"
   }, {
-    "icon": "bx bx-archive-in",
-    "title": "Revenue",
-    "value": "$35, 723"
-  }, {
-    "icon": "bx bx-purchase-tag-alt",
-    "title": "Average Price",
-    "value": "$16.2"
+    "icon": "mdi mdi-calendar",
+    "title": "Events",
+    "value": "102"
   }],
 
   "sassEarning": [{

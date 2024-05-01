@@ -3,9 +3,13 @@ import { emailSentBarChart, monthlyEarningChart } from './data';
 import { ChartType } from './dashboard.model';
 import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
 import { EventService } from '../../../core/services/event.service';
+import { EventService as ev } from '../../../event/service/event.service';
 
 import { ConfigService } from '../../../core/services/config.service';
-
+import { IEvent } from 'ngx-lightbox';
+import { FormBuilder, NgForm, Validators } from '@angular/forms';
+import { IEvent as AppEvent } from '../../../event/model/ievent';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-default',
   templateUrl: './default.component.html',
@@ -28,9 +32,11 @@ export class DefaultComponent implements OnInit {
 
   @ViewChild('content') content;
   @ViewChild('center', { static: false }) center?: ModalDirective;
-  constructor(private modalService: BsModalService, private configService: ConfigService, private eventService: EventService) {
+  constructor(private modalService: BsModalService, private configService: ConfigService, private eventService: EventService,private evenmentsService:ev,private router:Router,private fb:FormBuilder) {
   }
 
+  events!:IEvent[];
+  updateEventForm:any;
   ngOnInit() {
 
     /**
@@ -54,8 +60,72 @@ export class DefaultComponent implements OnInit {
      * Fetches the data
      */
     this.fetchData();
-  }
 
+
+    this.evenmentsService.getAllEvents().subscribe(events=>{
+      this.events=events;
+    })
+    this.updateEventForm=this.fb.group({
+      libelle:['',Validators.required],
+      description:['',Validators.required]
+    })
+  }
+  updating:boolean;
+  idEvent:number;
+OnSubmitUpdate(id:number){
+  this.updating=true;
+  console.log(this.updating);
+this.idEvent=id;
+this.getEventById();
+
+}
+updateEvent(){
+  this.evenmentsService.editEvent(this.updateEventForm.value,this.idEvent).subscribe((response)=>{
+    this.ngOnInit();
+  })
+}
+  getEventById(){
+    this.evenmentsService.getEventById(this.idEvent).subscribe((response)=>{
+      this.updateEventForm.patchValue(response);
+    })
+  }
+  addEvent(f:NgForm){
+    const newEvent={
+      id:null,
+      libelle:f.value.Libelle,
+      description:f.value.description
+    }
+    this.evenmentsService.addEvent(newEvent as AppEvent).subscribe(
+      response=>{
+        console.log('Event added successfully:', response);
+        this.ngOnInit();
+      },
+      error => {
+       
+        console.error('Error adding Event:', error);
+      }
+    );
+    
+    this.router.navigate(["/dash"]);
+    
+  }
+  subbmited=false;
+  onSubmit(f:NgForm){
+    this.subbmited=true;
+      if(f.invalid){
+        return
+      }
+      else{
+  this.addEvent(f)
+  }
+  }
+  deleteEvent(id:number){
+    console.log(id);
+    this.evenmentsService.deleteEvent(id).subscribe((response)=>{
+      this.ngOnInit();
+    })
+    
+  }
   ngAfterViewInit() {
     setTimeout(() => {
      this.center?.show()

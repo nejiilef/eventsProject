@@ -19,12 +19,12 @@
 <!-- Add New Event MODAL -->
 <ng-template #modalShow let-modal>
   <div class="modal-header">
-    <h5 class="modal-title" id="modal-title">Add New Event</h5>
+    <h5 class="modal-title" id="modal-title">Reserver une salle</h5>
     <button type="button" class="btn-close" (click)="closeEventModal()"></button>
   </div>
   <div class="modal-body p-4">
-    <form (ngSubmit)="saveEvent()" [formGroup]="formData">
-      <div class="row">
+    <form #f="ngForm" (submit)="validateTimes(f)">
+      <!--<div class="row">
         <div class="col-12">
           <div class="mb-3">
             <label class="control-label">Event Name</label>
@@ -49,8 +49,32 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
+      
 
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="formrow-email-input">Heure Debut</label>
+                <input class="form-control" id="HeureDebut" type="Time" [value]="time1" (ngModelChange)="updateTime1($event)" placeholder="Heure Debut: " required name="heureDebut" ngModel>
+              </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="formrow-password-input">Heure Fin</label>
+                <input class="form-control" id="HeureFin" type="Time" [value]="time2" (ngModelChange)="updateTime2($event)" placeholder="HeureFin : " required name="heureFin" ngModel>
+              </div>
+        </div>
+    </div>
+            <div class="mb-3">
+                <label for="formrow-inputState">Salle</label>
+                <select id="salle"   name="salle" [(ngModel)]="selectedSalle" class="form-select form-select-sm" >
+                  <option value="" disabled selected>Choisissez l'arrondissement</option>
+                  <option *ngFor="let s of salle" [ngValue]="s">{{s.libelle}}</option>
+      
+              </select>
+            </div>    
       <div class="text-end mt-2">
         <button type="button" class="btn btn-light me-1" (click)="closeEventModal()">
           Close

@@ -33,6 +33,7 @@ export class LoginComponent {
           alert("Hello, Your token is " + response.jwt);
           const jwtToken = response.jwt;
           localStorage.setItem('jwt', jwtToken);
+          localStorage.setItem('username', this.loginForm.value.username);
           if(localStorage.getItem("role")=="chef"){
           this.router.navigateByUrl("/dash");
         }else{
