@@ -1,4 +1,10 @@
 package com.clubsProjet.api.DTO;
 
-public record LoginResponse(String jwt) {
+import lombok.Data;
+
+@Data
+public class LoginResponse {
+
+	private String jwt;
+	private String role;
 }

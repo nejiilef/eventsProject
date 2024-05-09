@@ -11,4 +11,6 @@ public interface ReservationSalleService {
 	ReservationSalle updateReservationSalle(int salleId,int ReservationId,ReservationSalle reservation);
 	void deleteReservationSalle(int reservationId);
 	boolean isTimeRangeReserved(int salleId,ReservationSalle r);
+	List<ReservationSalle> getAllReservationSalleEnAttente();
+	ReservationSalle updateEtatReservation(int resId,int etatId);
 }

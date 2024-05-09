@@ -28,4 +28,5 @@ public class UserEntity {
 	    @ManyToOne(fetch=FetchType.EAGER)
 	    @JoinColumn(name="role_id")
 	    private Role role; 
+	    
 }

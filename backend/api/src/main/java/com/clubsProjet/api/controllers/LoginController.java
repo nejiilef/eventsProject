@@ -2,6 +2,9 @@ package com.clubsProjet.api.controllers;
 
 
 import jakarta.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -24,6 +27,7 @@ import java.io.IOException;
 @RequestMapping("/login")
 public class LoginController {
 
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     private final AuthenticationManager authenticationManager;
 
     private final CustomUserDetailsService customerService;
@@ -50,8 +54,17 @@ public class LoginController {
         }
         final UserDetails userDetails = customerService.loadUserByUsername(loginDto.getUsername());
         final String jwt = jwtUtil.generateToken(userDetails.getUsername());
-
-        return new LoginResponse(jwt);
+        LoginResponse l=new LoginResponse();
+        l.setJwt(jwt);
+        if(userDetails.getAuthorities().toString().equals("[admin]")) {
+        l.setRole("admin");}
+        else if(userDetails.getAuthorities().toString().equals("[chef]")){
+        	 l.setRole("chef");
+        }else {
+        	l.setRole("user");
+        }
+        logger.error("Un menu a déjà été ajouté pour la date du jour : {}", l.getRole());
+        return l;
     }
 
 }

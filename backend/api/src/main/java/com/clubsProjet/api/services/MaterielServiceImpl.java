@@ -40,6 +40,7 @@ public class MaterielServiceImpl implements MaterielService{
 		m.setLibelle(materiel.getLibelle());
 		m.setReserve(materiel.isReserve());
 		m.setId(materielId);
+		m.setQuantite(materiel.getQuantite());
 		return this.materielRepository.save(m);
 	}
 

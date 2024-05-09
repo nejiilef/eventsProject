@@ -31,6 +31,10 @@ public class ReservationSalleController {
 	public List<ReservationSalle> getAllReservationSalle(){
 		return this.reservationSalleService.getAllReservationSalle();
 	}
+	@GetMapping("/reservationAttente/salle")
+	public List<ReservationSalle> getAllReservationSalleEnAttente(){
+		return this.reservationSalleService.getAllReservationSalleEnAttente();
+	}
 	
 	@PostMapping("/reservation/salle/{salleId}")
 	public ResponseEntity<ReservationSalle> createReservationSalle(@PathVariable(value="salleId") int salleId,@RequestBody ReservationSalle reservationSalle){
@@ -44,7 +48,10 @@ public class ReservationSalleController {
 	public ResponseEntity<ReservationSalle> updateReservationSalle(@PathVariable(value="salleId") int salleId,@PathVariable(value="id") int id,@RequestBody ReservationSalle reservationSalle){
 		return ResponseEntity.status(HttpStatus.OK).body(this.reservationSalleService.updateReservationSalle(salleId, id, reservationSalle));
 	}
-	
+	@PutMapping("/reservation/{etatId}/salle/{id}")
+	public ResponseEntity<ReservationSalle> updateReservationSalleEtat(@PathVariable(value="id") int resId,@PathVariable(value="etatId") int etatId){
+		return ResponseEntity.status(HttpStatus.OK).body(this.reservationSalleService.updateEtatReservation(resId, etatId));
+	}
 	@DeleteMapping("/reservation/salle/{id}")
 	public ResponseEntity<String> deleteReservationSalle(@PathVariable(value="id") int id){
 		this.reservationSalleService.deleteReservationSalle(id);

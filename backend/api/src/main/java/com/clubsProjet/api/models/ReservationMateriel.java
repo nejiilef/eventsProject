@@ -19,14 +19,15 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name = "ReservationsSalle")
-public class ReservationSalle {
+@Table(name = "ReservationsMateriel")
+public class ReservationMateriel {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="salle_id")
-	private Salle salle;
+	@JoinColumn(name="materiel_id")
+	private Materiel materiel;
+	private String libelle;
 	private LocalDate jour;
 	private LocalTime heureDebut;
 	private LocalTime heureFin;
