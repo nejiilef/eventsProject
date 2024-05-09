@@ -34,10 +34,14 @@ export class TransactionComponent implements OnInit {
   // openModal(content: any) {
   //   this.modalRef = this.modalService.show(content);
   // }
+  nb:number;
   reservation!:IreservationSalle[];
 constructor(private service:ReservationSalleServiceService,private router:Router){}
   ngOnInit(): void {
-    this.service.getAllRessS().subscribe((r)=>this.reservation=r);
+    this.service.getAllRessS().subscribe((r)=>{this.reservation=r;
+    console.log(r);
+  console.log(r.length);}
+  );
   }
 
   deleteReservation(id:number){

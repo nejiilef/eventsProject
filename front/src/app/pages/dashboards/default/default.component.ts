@@ -10,6 +10,8 @@ import { IEvent } from 'ngx-lightbox';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { IEvent as AppEvent } from '../../../event/model/ievent';
 import { Router } from '@angular/router';
+import { ReservationSalleServiceService } from 'src/app/reservation-salle/service/reservation-salle-service.service';
+import { number } from 'echarts';
 @Component({
   selector: 'app-default',
   templateUrl: './default.component.html',
@@ -18,11 +20,12 @@ import { Router } from '@angular/router';
 export class DefaultComponent implements OnInit {
   modalRef?: BsModalRef;
   isVisible: string;
-
+nb:number;
+  ;
   emailSentBarChart: ChartType;
   monthlyEarningChart: ChartType;
   transactions: any;
-  statData: any;
+  statData:any;
   config:any = {
     backdrop: true,
     ignoreBackdropClick: true
@@ -32,13 +35,12 @@ export class DefaultComponent implements OnInit {
 
   @ViewChild('content') content;
   @ViewChild('center', { static: false }) center?: ModalDirective;
-  constructor(private modalService: BsModalService, private configService: ConfigService, private eventService: EventService,private evenmentsService:ev,private router:Router,private fb:FormBuilder) {
+  constructor(private modalService: BsModalService, private configService: ConfigService, private eventService: EventService,private evenmentsService:ev,private router:Router,private fb:FormBuilder,private reservationSalleService:ReservationSalleServiceService) {
   }
-
   events!:IEvent[];
   updateEventForm:any;
   ngOnInit() {
-
+   
     /**
      * horizontal-vertical layput set
      */
@@ -136,13 +138,27 @@ updateEvent(){
    * Fetches the data
    */
   private fetchData() {
+  
+    this.evenmentsService.getAllEvents().subscribe((r)=>{
+      this.nb=r.length;
+      this.statData=[{
+        "icon": "mdi mdi-wallet-membership",
+        "title": "Members",
+        "value": 9
+      }, {
+        "icon": "mdi mdi-calendar",
+        "title": "Events",
+        "value": this.nb
+      }];}
+     );
+    
     this.emailSentBarChart = emailSentBarChart;
     this.monthlyEarningChart = monthlyEarningChart;
 
     this.isActive = 'year';
     this.configService.getConfig().subscribe(data => {
       this.transactions = data.transactions;
-      this.statData = data.statData;
+      this.statData[2].value=this.nb;
     });
   }
   opencenterModal(template: TemplateRef<any>) {

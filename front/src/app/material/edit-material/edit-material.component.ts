@@ -17,7 +17,8 @@ export class EditMaterialComponent {
     this.updateForm=this.fb.group({
       id:[this.id],
       libelle:['',Validators.required],
-      reserve:[false,Validators.required]
+      reserve:[false,Validators.required],
+      quantite:['',Validators.required]
     })
     this.getMaterialById();
   }

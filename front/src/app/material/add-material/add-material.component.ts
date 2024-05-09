@@ -23,7 +23,7 @@ export class AddMaterialComponent {
   }
   }
   addMaterial=(f:NgForm)=>{
-   const newArr={ libelle:f.value.libelle,reserve:false}
+   const newArr={ libelle:f.value.libelle,reserve:false,quantite:f.value.quantite}
    this.service.addMaterial(newArr as Imaterial).subscribe(
     response => {
    

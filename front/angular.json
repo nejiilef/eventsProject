@@ -33,10 +33,6 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/css/plugins/swiper.min.css",
-              "src/assets/css/vendor/metismenu.css",
-              "src/assets/css/plugins/animate.min.css",
-              "src/assets/css/vendor/bootstrap.min.css",
               "src/styles.scss",
               "node_modules/@ctrl/ngx-emoji-mart/picker.css",
               "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
