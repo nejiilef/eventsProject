@@ -18,10 +18,8 @@ import { UIModule } from '../shared/ui/ui.module';
 
 // Emoji Picker
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
-
 import { PagesRoutingModule } from './pages-routing.module';
 
-import { DashboardsModule } from './dashboards/dashboards.module';
 import { EcommerceModule } from './ecommerce/ecommerce.module';
 import { CryptoModule } from './crypto/crypto.module';
 import { EmailModule } from './email/email.module';
@@ -41,10 +39,13 @@ import { MapsModule } from './maps/maps.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ChatComponent } from './chat/chat.component';
 import { FilemanagerComponent } from './filemanager/filemanager.component';
+import { DashboardsModule } from './dashboards/dashboards.module';
+import { DashResponsableModule } from '../dash-responsable/dash-responsable.module';
 
 @NgModule({
   declarations: [CalendarComponent, ChatComponent, FilemanagerComponent],
   imports: [
+    
     CommonModule,
     FormsModule,
     BsDropdownModule.forRoot(),
@@ -52,7 +53,6 @@ import { FilemanagerComponent } from './filemanager/filemanager.component';
     PagesRoutingModule,
     NgApexchartsModule,
     ReactiveFormsModule,
-    DashboardsModule,
     CryptoModule,
     EcommerceModule,
     EmailModule,
@@ -77,7 +77,8 @@ import { FilemanagerComponent } from './filemanager/filemanager.component';
     CollapseModule.forRoot(),
     SimplebarAngularModule,
     LightboxModule,
-    PickerModule
+    PickerModule,
+    //DashboardsModule
   ],
 })
 export class PagesModule { }

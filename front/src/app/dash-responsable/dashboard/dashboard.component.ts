@@ -11,6 +11,9 @@ import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { IEvent as AppEvent } from '../../event/model/ievent';
 import { Router } from '@angular/router';
 import { ReservationSalleServiceService } from 'src/app/reservation-salle/service/reservation-salle-service.service';
+import { IreservationSalle } from 'src/app/reservation-salle/model/ireservation-salle';
+import { MaterialService } from 'src/app/material/service/material.service';
+import { Imaterial } from 'src/app/material/model/imaterial';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +24,6 @@ export class DashboardComponent {
   modalRef?: BsModalRef;
   isVisible: string;
 nb:number;
-  ;
   emailSentBarChart: ChartType;
   monthlyEarningChart: ChartType;
   transactions: any;
@@ -35,12 +37,18 @@ nb:number;
 
   @ViewChild('content') content;
   @ViewChild('center', { static: false }) center?: ModalDirective;
-  constructor(private modalService: BsModalService, private configService: ConfigService, private eventService: EventService,private evenmentsService:ev,private router:Router,private fb:FormBuilder,private reservationSalleService:ReservationSalleServiceService) {
+  constructor(private serviceMateriel:MaterialService ,private modalService: BsModalService, private configService: ConfigService, private eventService: EventService,private evenmentsService:ev,private router:Router,private fb:FormBuilder,private reservationSalleService:ReservationSalleServiceService) {
   }
   events!:IEvent[];
   updateEventForm:any;
+  reservation!:IreservationSalle[];
+  materials!:Imaterial[];
   ngOnInit() {
-   
+    this.reservationSalleService.getAllRessSAttente().subscribe((r)=>{this.reservation=r;
+      console.log(r);
+    console.log(r.length);}
+    );
+    this.serviceMateriel.getAllMaterials().subscribe((m)=>this.materials=m);
     /**
      * horizontal-vertical layput set
      */
@@ -70,6 +78,17 @@ nb:number;
     this.updateEventForm=this.fb.group({
       libelle:['',Validators.required],
       description:['',Validators.required]
+    })
+  }
+  deleteMaterial(id:number){
+    this.serviceMateriel.deleteMaterial(id).subscribe((response)=>{
+      this.router.navigate(['user/material']);
+      this.ngOnInit();
+    })
+  }
+  updatEtatResSalle(id:number,etatId:number){
+    this.reservationSalleService.updateEtatRessS(id,etatId).subscribe((response)=>{
+      this.ngOnInit();
     })
   }
   updating:boolean;

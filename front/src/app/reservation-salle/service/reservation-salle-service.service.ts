@@ -19,7 +19,9 @@ export class ReservationSalleServiceService {
   getAllRessS():Observable<IreservationSalle[]>{
     return this.http.get<IreservationSalle[]>(BASE_URL+'api/reservation/salle',{headers:this.headers!});
   }
-
+  getAllRessSAttente():Observable<IreservationSalle[]>{
+    return this.http.get<IreservationSalle[]>(BASE_URL+'api/reservationAttente/salle',{headers:this.headers!});
+  }
 addRessS(a:IreservationSalle,id : number):Observable<IreservationSalle> {
     return this.http.post<IreservationSalle>(BASE_URL + "api/reservation/salle/" + id,a,{headers:this.headers!});
   }
@@ -28,7 +30,9 @@ updateRessS(a:IreservationSalle , id : number):Observable<IreservationSalle> {
     return this.http.put<IreservationSalle>(BASE_URL + "api/reservation/salle/"+ a.id + id,a,{headers:this.headers!});
   }
 
-
+  updateEtatRessS(id : number,etatId:number):Observable<IreservationSalle> {
+    return this.http.put<IreservationSalle>(BASE_URL + "api/reservation/"+etatId+"/salle/"+ id,{headers:this.headers!});
+  }
   deleteRess(id: number): Observable<string> {
     return this.http.delete(BASE_URL + 'api/reservation/salle/' + id, { headers: this.headers!, responseType: 'text' });
   }

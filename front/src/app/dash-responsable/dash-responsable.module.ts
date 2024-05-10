@@ -1,84 +1,42 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { FullCalendarModule } from '@fullcalendar/angular';
-import { SimplebarAngularModule } from 'simplebar-angular';
-import { LightboxModule } from 'ngx-lightbox';
 
-import { WidgetModule } from '../shared/widget/widget.module';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BsDropdownModule,BsDropdownConfig} from 'ngx-bootstrap/dropdown';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { CommonModule } from '@angular/common';
+import { DefaultComponent } from '../pages/dashboards/default/default.component';
+import { SaasComponent } from '../pages/dashboards/saas/saas.component';
+import { CryptoComponent } from '../pages/dashboards/crypto/crypto.component';
+import { BlogComponent } from '../pages/dashboards/blog/blog.component';
+import { JobsComponent } from '../pages/dashboards/jobs/jobs.component';
 import { UIModule } from '../shared/ui/ui.module';
-
-// Emoji Picker
-import { PickerModule } from '@ctrl/ngx-emoji-mart';
-
-import { PagesRoutingModule } from '../pages/pages-routing.module';
-
-import { DashboardsModule } from '../pages/dashboards/dashboards.module';
-import { EcommerceModule } from '../pages/ecommerce/ecommerce.module';
-import { CryptoModule } from '../pages/crypto/crypto.module';
-import { EmailModule } from '../pages/email/email.module';
-import { InvoicesModule } from '../pages/invoices/invoices.module';
-import { ProjectsModule } from '../pages/projects/projects.module';
-import { TasksModule } from '../pages/tasks/tasks.module';
-import { ContactsModule } from '../pages/contacts/contacts.module';
-import { BlogModule } from "../pages/blog/blog.module";
-import { UtilityModule } from '../pages/utility/utility.module';
-import { UiModule } from '../pages/ui/ui.module';
-import { FormModule } from '../pages/form/form.module';
-import { TablesModule } from '../pages/tables/tables.module';
-import { IconsModule } from '../pages/icons/icons.module';
-import { ChartModule } from '../pages/chart/chart.module';
-import { CalendarComponent } from '../pages/calendar/calendar.component';
-import { MapsModule } from '../pages/maps/maps.module';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ChatComponent } from '../pages/chat/chat.component';
-import { FilemanagerComponent } from '../pages/filemanager/filemanager.component';
+import { DashboardsRoutingModule } from '../pages/dashboards/dashboards-routing.module';
+import { WidgetModule } from '../shared/widget/widget.module';
+import { DashResponsableRoutingModule } from './dash-responsable-routing.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
-  declarations: [CalendarComponent, ChatComponent, FilemanagerComponent],
+  declarations: [DashboardComponent],
   imports: [
-    CommonModule,
-    FormsModule,
-    BsDropdownModule.forRoot(),
-    ModalModule.forRoot(),
-    PagesRoutingModule,
-    NgApexchartsModule,
-    ReactiveFormsModule,
-    DashboardsModule,
-    CryptoModule,
-    EcommerceModule,
-    EmailModule,
-    InvoicesModule,
-    HttpClientModule,
-    ProjectsModule,
     UIModule,
-    TasksModule,
-    ContactsModule,
-    BlogModule,
-    UtilityModule,
-    UiModule,
-    FormModule,
-    TablesModule,
-    IconsModule,
-    ChartModule,
-    WidgetModule,
-    MapsModule,
-    FullCalendarModule,
-    TabsModule.forRoot(),
+    FormsModule,
+    CommonModule,
+    ReactiveFormsModule,
+    BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
-    CollapseModule.forRoot(),
-    SimplebarAngularModule,
-    LightboxModule,
-    PickerModule,
-    ReactiveFormsModule
+    TabsModule.forRoot(),
+    CarouselModule.forRoot(),
+    WidgetModule,
+    NgApexchartsModule,
+    ModalModule.forRoot(),
+    DashResponsableRoutingModule
   ],
+  providers: [BsDropdownConfig],
 })
 export class DashResponsableModule { }

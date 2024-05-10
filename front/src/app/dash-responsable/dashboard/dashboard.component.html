@@ -101,7 +101,7 @@
                         <div class="ms-auto">
                             <ul class="nav nav-pills">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="javascript: void(0);" [ngClass]="{'active': isActive === 'week'}" (click)="weeklyreport()">Week</a>
+                                    <a class="nav-link" href="javascript: void(0);"  (click)="weeklyreport()" [ngClass]="{'active': isActive === 'week'}">Week</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="javascript: void(0);" (click)="monthlyreport()" [ngClass]="{'active': isActive === 'month'}">Month</a>
@@ -235,15 +235,122 @@
             <div class="card-body">
                 
                 <h4 class="card-title mb-4">List des reservations des salles</h4>
-   
-                <app-transaction ></app-transaction>
+                <!--table reservation salle-->
+                <div class="table-responsive mb-0">
+                    <table class="table table-centered table-nowrap">
+                      <thead class="table-light">
+                        <tr>
+                          <th style="width: 20px;">
+                            <div class="form-check font-size-16 align-middle">
+                              <input class="form-check-input" type="checkbox" id="transactionCheck01">
+                              <label class="form-check-label" for="transactionCheck01"></label>
+                            </div>
+                          </th>
+                          <th class="align-middle">ID</th>
+                          <th class="align-middle">Jour</th>
+                          <th class="align-middle">Heure Debut</th>
+                          <th class="align-middle">Heure Fin</th>
+                          <th class="align-middle">Etat</th>
+                          <th class="align-middle" colspan="2">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of reservation">
+                          <td>
+                            <div class="form-check font-size-16">
+                              <input class="form-check-input" type="checkbox" id="transactionCheck{{data.index}}">
+                              <label class="form-check-label" for="transactionCheck{{data.index}}"></label>
+                            </div>
+                          </td>
+                          <td>
+                            <a href="javascript: void(0);" class="text-body fw-bold">{{data.id}}</a>
+                          </td>
+                          <td>{{data.jour}}</td>
+                          <td>{{data.heureDebut}}</td>
+                          <td>{{data.heureFin}}</td>
+                          <td>{{data.etat.libelle}}</td>
+                         
+                          <td>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary btn-sm btn-rounded" (click)="updatEtatResSalle(data.id,1)">Accepter</button>
+                          </td>
+                          <td>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-danger btn-sm btn-rounded" (click)="updatEtatResSalle(data.id,2)">Refuser</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </div>
+                    <!--end table reservation salle-->
+                <!--<app-transaction ></app-transaction> -->
+                <!-- end table -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                
+                <h4 class="card-title mb-4">List des materiels</h4>
+                <!--table reservation salle-->
+                <div class="table-responsive mb-0">
+                    <table class="table table-centered table-nowrap">
+                      <thead class="table-light">
+                        <tr>
+                          <th style="width: 20px;">
+                            <div class="form-check font-size-16 align-middle">
+                              <input class="form-check-input" type="checkbox" id="transactionCheck01">
+                              <label class="form-check-label" for="transactionCheck01"></label>
+                            </div>
+                          </th>
+                          <th class="align-middle">ID</th>
+                          <th class="align-middle">Jour</th>
+                          <th class="align-middle">Heure Debut</th>
+                          <th class="align-middle">Heure Fin</th>
+                          <th class="align-middle">Etat</th>
+                          <th class="align-middle" colspan="2">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of reservation">
+                          <td>
+                            <div class="form-check font-size-16">
+                              <input class="form-check-input" type="checkbox" id="transactionCheck{{data.index}}">
+                              <label class="form-check-label" for="transactionCheck{{data.index}}"></label>
+                            </div>
+                          </td>
+                          <td>
+                            <a href="javascript: void(0);" class="text-body fw-bold">{{data.id}}</a>
+                          </td>
+                          <td>{{data.jour}}</td>
+                          <td>{{data.heureDebut}}</td>
+                          <td>{{data.heureFin}}</td>
+                          <td>{{data.etat.libelle}}</td>
+                         
+                          <td>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary btn-sm btn-rounded" (click)="updatEtatResSalle(data.id,1)">Accepter</button>
+                          </td>
+                          <td>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-danger btn-sm btn-rounded" (click)="updatEtatResSalle(data.id,2)">Refuser</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </div>
+                    <!--end table reservation salle-->
+                <!--<app-transaction ></app-transaction> -->
                 <!-- end table -->
             </div>
         </div>
     </div>
 </div>
 
-<div >
+<div>
     <div bsModal #content2="bs-modal" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">

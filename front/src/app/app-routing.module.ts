@@ -13,6 +13,7 @@ const routes: Routes = [
   {path:'auth',loadChildren:()=>import('./auth/auth.module' ).then(m=>m.AuthModule)},
   {path:'ressSalle',loadChildren:()=>import('./reservation-salle/reservation-salle.module' ).then(m=>m.ReservationSalleModule),canActivate:[guardGuard]},
   {path:'material',loadChildren:()=>import('./material/material.module').then(m=>m.MaterialModule),canActivate:[guardGuard]},
+  {path:'respo',component: LayoutComponent,loadChildren:()=>import('./dash-responsable/dash-responsable.module').then(m=>m.DashResponsableModule)},
   {
     path:'',redirectTo:'auth/login',pathMatch:'full',
   },
